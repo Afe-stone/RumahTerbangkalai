@@ -1,5 +1,6 @@
 package com.example.rumahterbangkalai
 
+import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
@@ -36,9 +37,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 
-        setContentView(R.layout.activity_main)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
+
+        // Jalankan musik latar
+        startService(Intent(this, MusicService::class.java))
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -158,5 +162,11 @@ class MainActivity : AppCompatActivity() {
             }
             choicesContainer.addView(button)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // Hentikan musik saat aplikasi ditutup
+        stopService(Intent(this, MusicService::class.java))
     }
 }

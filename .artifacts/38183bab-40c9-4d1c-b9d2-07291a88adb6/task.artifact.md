@@ -1,0 +1,4 @@
+- `[x]` Inisialisasi MusicService di MainActivity
+- `[x]` Cleanup MainActivity (hapus double setContentView)
+- `[x]` Tambahkan stopService di onDestroy MainActivity
+- `[x]` Verifikasi build
