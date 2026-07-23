@@ -11,12 +11,22 @@ class MusicService : Service() {
         return null 
     }
     
-    override fun onCreate(){
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        if (mediaPlayer == null) {
+            mediaPlayer = MediaPlayer.create(this, R.raw.backsound)
+            mediaPlayer?.isLooping = true
+            mediaPlayer?.setVolume(0.4f, 0.4f)
+        }
+        
+        if (mediaPlayer?.isPlaying == false) {
+            mediaPlayer?.start()
+        }
+        
+        return START_STICKY
+    }
+
+    override fun onCreate() {
         super.onCreate()
-        mediaPlayer = MediaPlayer.create(this,R.raw.backsound)
-        mediaPlayer?.isLooping = true
-        mediaPlayer?.setVolume(0.4f,0.4f)
-        mediaPlayer?.start()
     }
     
     override fun onDestroy(){
