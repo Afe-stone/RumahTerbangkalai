@@ -61,16 +61,26 @@ class MenuActivity : AppCompatActivity() {
         btnContinue.isEnabled = false
 
     }
+
+    override fun onPause() {
+        super.onPause()
+        if (mediaPlayer?.isPlaying == true) {
+            mediaPlayer?.pause()
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         if (mediaPlayer != null && !mediaPlayer!!.isPlaying) {
             mediaPlayer?.start()
         }
     }
+
     override fun onDestroy() {
         super.onDestroy()
         mediaPlayer?.stop()
         mediaPlayer?.release()
         mediaPlayer = null
     }
+
 }
