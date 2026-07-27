@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity() {
     private fun displayCurrentLine() {
         val line = currentNode.lines[currentLineIndex]
         currentFullLineText = line
-
+        lastLineStartTime = System.currentTimeMillis()
         typingJob?.cancel()
         typingJob = lifecycleScope.launch {
             isTyping = true
@@ -101,7 +101,7 @@ class MainActivity : AppCompatActivity() {
             for (char in line) {
                 sb.append(char)
                 tvLine.text = sb.toString()
-                delay(2000)
+                delay(20)
             }
             finishTyping()
         }
@@ -120,6 +120,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleDialogueClick() {
+        if (System.currentTimeMillis() - lastLineStartTime < 1000) {
+            return
+        }
         if (isTyping) {
             typingJob?.cancel()
             finishTyping()

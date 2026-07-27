@@ -17,6 +17,6 @@ class LoadingActivity : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             startActivity(Intent(this, MenuActivity::class.java))
             finish()
-        }, 3676) // 3 detik
+        }, 676) // 3 detik
     }
 }
