@@ -17,6 +17,8 @@ class LoadingActivity : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             startActivity(Intent(this, MenuActivity::class.java))
             finish()
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }, 676) // 3 detik
+
     }
 }

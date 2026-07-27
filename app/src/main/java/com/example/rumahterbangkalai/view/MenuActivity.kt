@@ -32,6 +32,7 @@ class MenuActivity : AppCompatActivity() {
         btnNewGame.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
         btnExit.setOnClickListener {
             finishAffinity()
