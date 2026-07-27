@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/main"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/rumahterbangkalai"
+    android:orientation="vertical"
+    app:layout_constraintStart_toStartOf="parent"
+    android:padding="24dp">
+
+
+    <!-- Judul Game -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:fontFamily="@font/exocet_light"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginLeft="50dp"
+
+        android:text="Rumah Terbangkai"
+        android:textSize="38sp"
+        android:textStyle="bold" />
+
+    <!-- Tombol Continue -->
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:fontFamily="@font/exocet_light"
+        android:text="typo jir"
+        android:layout_marginLeft="50dp"
+
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnContinue"
+        android:background="@android:color/transparent"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/exocet"
+        android:textColor="@color/white"
+android:layout_marginLeft="50dp"
+        android:textSize="20dp"
+        android:layout_marginBottom="18dp"
+        android:text="Continue" />
+
+    <!-- Tombol New Game -->
+    <Button
+        android:id="@+id/btnNewGame"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/exocet"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:layout_marginLeft="50dp"
+
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:text="New Game" />
+
+    <!-- Tombol Load Game -->
+    <Button
+        android:id="@+id/btnLoad"
+        android:layout_width="200dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/exocet"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:layout_marginLeft="50dp"
+
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:text="Load" />
+
+    <!-- Tombol Exit -->
+    <Button
+        android:id="@+id/btnExit"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/exocet"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:layout_marginLeft="50dp"
+
+        android:text="Exit" />
+
+</LinearLayout>

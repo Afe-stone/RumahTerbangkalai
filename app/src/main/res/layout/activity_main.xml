@@ -48,23 +48,23 @@
         android:id="@+id/dialogue_bar"
         android:layout_width="match_parent"
         android:layout_height="140dp"
-        android:background="#E617130F"
+        android:background="#80000000"
         android:clickable="true"
         android:focusable="true"
         android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <View
-            android:layout_width="4dp"
-            android:layout_height="match_parent"
-            android:background="#7A2E26"
-            app:layout_constraintStart_toStartOf="parent" />
+<!--        <View-->
+<!--            android:layout_width="4dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:background="#7A2E26"-->
+<!--            app:layout_constraintStart_toStartOf="parent" />-->
 
         <TextView
             android:id="@+id/tv_speaker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="69dp"
             android:text="NARATOR"
             android:textColor="#A5432F"
             android:textSize="12sp"
@@ -76,9 +76,9 @@
             android:id="@+id/tv_line"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="67dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginEnd="67dp"
             android:text="Memuat cerita..."
             android:textColor="#D9CFBB"
             android:textSize="16sp"

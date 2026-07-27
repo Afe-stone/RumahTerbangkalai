@@ -33,6 +33,8 @@ class MainActivity : AppCompatActivity() {
     private var currentNode: StoryNode = storyMap["intro"]!!
     private var currentLineIndex = 0
     private var isTyping = false
+
+    private var lastLineStartTime: Long = 0L
     private var typingJob: Job? = null
     private var currentFullLineText = ""
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +43,6 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        // Jalankan musik latar
         startService(Intent(this, MusicService::class.java))
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -70,7 +71,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun goToNode(key: String) {
-        val node = storyMap[key] ?: return // Langsung mengambil dari database luar
+        val node = storyMap[key] ?: return
         currentNode = node
         currentLineIndex = 0
 
@@ -100,7 +101,7 @@ class MainActivity : AppCompatActivity() {
             for (char in line) {
                 sb.append(char)
                 tvLine.text = sb.toString()
-                delay(20)
+                delay(2000)
             }
             finishTyping()
         }

@@ -15,8 +15,8 @@ class LoadingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_loading)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, MenuActivity::class.java))
             finish()
-        }, 3000) // 3 detik
+        }, 3676) // 3 detik
     }
 }
