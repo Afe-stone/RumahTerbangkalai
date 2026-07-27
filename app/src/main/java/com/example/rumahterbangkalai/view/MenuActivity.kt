@@ -1,6 +1,7 @@
 package com.example.rumahterbangkalai.view
 
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
@@ -11,10 +12,23 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.rumahterbangkalai.R
 
 class MenuActivity : AppCompatActivity() {
+
+
+    private var mediaPlayer: MediaPlayer? = null
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_menu)
+
+
+        mediaPlayer = MediaPlayer.create(this, R.raw.mainmenu)
+        mediaPlayer?.isLooping = true // Agar musik mengulang (looping) terus
+        mediaPlayer?.start()
+
+
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -45,6 +59,18 @@ class MenuActivity : AppCompatActivity() {
             Toast.makeText(this, "besok ajah", Toast.LENGTH_SHORT).show()
         }
         btnContinue.isEnabled = false
-    }
 
+    }
+    override fun onResume() {
+        super.onResume()
+        if (mediaPlayer != null && !mediaPlayer!!.isPlaying) {
+            mediaPlayer?.start()
+        }
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        mediaPlayer?.stop()
+        mediaPlayer?.release()
+        mediaPlayer = null
+    }
 }

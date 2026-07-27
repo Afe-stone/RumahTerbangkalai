@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -33,6 +34,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tvSpeaker: TextView
     private lateinit var tvLine: TextView
     private lateinit var ivArrow: View
+
+    private lateinit var btnPause: Button
     private lateinit var choicesContainer: LinearLayout
     private lateinit var btnRestart: Button
     private lateinit var dialogueBar: View
@@ -50,6 +53,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         rootLayout = findViewById(R.id.main)
+        btnPause = findViewById(R.id.btnPause)
         tvChapter = findViewById(R.id.tv_chapter)
         tvSpeaker = findViewById(R.id.tv_speaker)
         tvLine = findViewById(R.id.tv_line)
@@ -74,6 +78,9 @@ class MainActivity : AppCompatActivity() {
                 showPauseMenu()
             }
         })
+        btnPause.setOnClickListener {
+            showPauseMenu()
+        }
 
         dialogueBar.setOnClickListener {
             handleDialogueClick()
