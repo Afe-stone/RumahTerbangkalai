@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnRestart: Button
     private lateinit var dialogueBar: View
     private lateinit var saveManager: SaveManager
+    private var playerName: String = "Kamu"
 
     private var currentNode: StoryNode = storyMap["intro"]!!
     private var currentNodeKey: String = "intro"
@@ -66,6 +67,7 @@ class MainActivity : AppCompatActivity() {
         btnRestart = findViewById(R.id.btn_restart)
         dialogueBar = findViewById(R.id.dialogue_bar)
         saveManager = SaveManager(this)
+        playerName = saveManager.getPlayerName()
 
         ViewCompat.setOnApplyWindowInsetsListener(rootLayout) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -121,23 +123,49 @@ class MainActivity : AppCompatActivity() {
 
         rootLayout.setBackgroundColor(node.backgroundColor.toColorInt())
         tvChapter.text = node.label.uppercase()
-        tvSpeaker.text = if (node.isEnding) "NARATOR · TAMAT" else "NARATOR"
+        // tvSpeaker updated per line in displayCurrentLine()
 
         displayCurrentLine()
     }
 
     private fun displayCurrentLine() {
-        val line = currentNode.lines[currentLineIndex]
-        currentFullLineText = line
+        var rawLine = currentNode.lines[currentLineIndex]
+
+        // Dynamic name replacement
+        rawLine = rawLine.replace("Kamu:", "$playerName:")
+        rawLine = rawLine.replace("(Kamu ", "($playerName ")
+        rawLine = rawLine.replace(" Kamu ", " $playerName ")
+        rawLine = rawLine.replace(" Kamu.", " $playerName.")
+        rawLine = rawLine.replace(" Kamu,", " $playerName,")
+
+        val speaker: String
+        val dialogue: String
+
+        if (rawLine.contains(":")) {
+            val parts = rawLine.split(":", limit = 2)
+            speaker = parts[0].trim()
+            // Clean dialogue: remove quotes if they wrap the text
+            var text = parts[1].trim()
+            if (text.startsWith("\"") && text.endsWith("\"")) {
+                text = text.substring(1, text.length - 1)
+            }
+            dialogue = text
+        } else {
+            speaker = "" // Narration
+            dialogue = rawLine
+        }
+
+        currentFullLineText = dialogue
         lastLineStartTime = System.currentTimeMillis()
         typingJob?.cancel()
         typingJob = lifecycleScope.launch {
             isTyping = true
             ivArrow.visibility = View.INVISIBLE
+            tvSpeaker.text = speaker
             tvLine.text = ""
 
             val sb = StringBuilder()
-            for (char in line) {
+            for (char in dialogue) {
                 sb.append(char)
                 tvLine.text = sb.toString()
                 delay(20.milliseconds)
@@ -187,7 +215,8 @@ class MainActivity : AppCompatActivity() {
 
         for (choice in currentNode.choices) {
             val button = Button(this).apply {
-                text = getString(R.string.choice_format, choice.text)
+                val choiceText = choice.text.replace("Kamu", playerName)
+                text = getString(R.string.choice_format, choiceText)
                 setTextColor("#D9CFBB".toColorInt())
                 val choiceFont = ResourcesCompat.getFont(this@MainActivity, R.font.merriweather)
                 typeface = choiceFont

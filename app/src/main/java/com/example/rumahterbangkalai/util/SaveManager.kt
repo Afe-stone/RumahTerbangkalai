@@ -14,6 +14,14 @@ class SaveManager(context: Context) {
         }
     }
 
+    fun savePlayerName(name: String) {
+        prefs.edit().putString("player_name", name).apply()
+    }
+
+    fun getPlayerName(): String {
+        return prefs.getString("player_name", "Kamu") ?: "Kamu"
+    }
+
     fun getSavedNode(): String? {
         return prefs.getString("current_node", null)
     }

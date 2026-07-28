@@ -2,8 +2,11 @@ package com.example.rumahterbangkalai.view
 
 import android.content.Intent
 import android.media.MediaPlayer
+import android.os.Build
 import android.os.Bundle
+import android.view.WindowManager
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +14,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.rumahterbangkalai.R
 import com.example.rumahterbangkalai.util.SaveManager
+import android.app.Dialog
 
 class MenuActivity : AppCompatActivity() {
 
@@ -40,9 +44,7 @@ class MenuActivity : AppCompatActivity() {
         val btnExit: Button = findViewById(R.id.btnExit)
 
         btnNewGame.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+            showNameInputDialog()
         }
         btnExit.setOnClickListener {
             finishAffinity()
@@ -66,6 +68,43 @@ class MenuActivity : AppCompatActivity() {
         } else {
             Toast.makeText(this, "No save data found", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun showNameInputDialog() {
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.dialog_input_name)
+
+        dialog.window?.let { window ->
+            window.setBackgroundDrawableResource(android.R.color.transparent)
+            window.setLayout(
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.MATCH_PARENT
+            )
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                window.addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND)
+                window.attributes.blurBehindRadius = 67
+            }
+        }
+
+        val etPlayerName = dialog.findViewById<EditText>(R.id.etPlayerName)
+        val btnStart = dialog.findViewById<Button>(R.id.btnStartGame)
+
+        btnStart.setOnClickListener {
+            val name = etPlayerName.text.toString().trim()
+            if (name.isNotEmpty()) {
+                saveManager.clearSaveData() // Reset progress for new game
+                saveManager.savePlayerName(name)
+                
+                dialog.dismiss()
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+            } else {
+                Toast.makeText(this, "Masukkan nama terlebih dahulu", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        dialog.show()
     }
 
     override fun onPause() {

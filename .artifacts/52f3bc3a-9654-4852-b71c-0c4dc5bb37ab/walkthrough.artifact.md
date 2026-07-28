@@ -1,35 +1,32 @@
-# Walkthrough - Implementasi Fitur Save, Load, dan Continue
+# Walkthrough - Pemisahan Nama Karakter dan Dialog
 
-Saya telah berhasil mengimplementasikan sistem penyimpanan data untuk game "Rumah Terbangkalai". Pemain sekarang dapat menyimpan progres mereka dan melanjutkannya nanti.
+Saya telah memperbarui antarmuka dialog agar nama karakter yang berbicara muncul di area khusus di atas baris dialog, sementara narasi tetap bersih tanpa nama di atasnya.
 
-## Fitur yang Ditambahkan
+## Perubahan yang Dilakukan
 
-### 1. `SaveManager`
-Kelas utilitas baru yang menangani penyimpanan status game ke `SharedPreferences`.
-- Menyimpan kunci node cerita saat ini.
-- Menyimpan indeks baris teks terakhir yang dibaca.
+### 1. Pemisahan Visual Nama dan Dialog
+[MainActivity.kt](file:///C:/Users/Lenovo/StudioProjects/RumahTerbangkalai/app/src/main/java/com/example/rumahterbangkalai/view/MainActivity.kt)
+- **Parsing Cerdas**: Sistem sekarang secara otomatis memisahkan nama pembicara dari teks dialog dengan mencari tanda titik dua (`:`).
+- **Speaker Area**: Jika karakter berbicara (misal: `Asko:`), nama "Asko" akan ditampilkan di label merah (`tvSpeaker`) di atas teks utama.
+- **Narration Mode**: Jika baris teks adalah narasi (tanpa tanda titik dua), label pembicara akan dikosongkan secara otomatis sesuai permintaan.
+- **Pembersihan Teks**: Teks dialog dibersihkan dari spasi berlebih dan tanda kutip pembungkus yang tidak perlu agar tampilan lebih rapi.
 
-### 2. Menu Jeda (Pause Menu)
-Tombol **Save** dan **Load** di dalam game sekarang sudah berfungsi:
-- **Save**: Menyimpan posisi saat ini (node dan baris teks).
-- **Load**: Memuat kembali data yang tersimpan secara instan tanpa harus keluar ke menu utama.
+### 2. Integrasi Nama Dinamis
+Sistem pemisahan ini bekerja secara harmonis dengan fitur nama pemain dinamis. Nama yang Anda masukkan di awal permainan akan dikenali sebagai pembicara dan diposisikan dengan benar di area nama.
 
-### 3. Menu Utama (Main Menu)
-- **Continue**: Tombol ini akan otomatis aktif jika ada data permainan yang tersimpan. Klik tombol ini untuk langsung masuk ke posisi terakhir Anda.
-- **Load**: Berfungsi sama seperti Continue untuk memuat data tersimpan.
-- Tombol Continue akan terlihat sedikit transparan (setengah pudar) jika tidak ada data save yang tersedia.
+## Hasil Verifikasi
+- **Dialog Karakter**: Nama karakter (Asko, Raffa, dsb.) muncul di atas kotak dialog.
+- **Dialog Pemain**: Nama pemain muncul di atas saat pemain berbicara.
+- **Narasi**: Saat teks narasi muncul (misal: deskripsi suasana dalam kurung), area nama di atas kosong.
+- **Typing Effect**: Animasi pengetikan tetap berjalan lancar pada teks dialog yang telah dipisahkan.
 
-## Teknis Implementasi
-- Menggunakan `SharedPreferences` untuk persistensi data yang ringan.
-- Komunikasi antar Activity menggunakan `Intent` extras (`LOAD_NODE` dan `LOAD_INDEX`).
-- Sinkronisasi status tombol di `onResume` pada `MenuActivity` untuk memastikan tampilan selalu akurat setelah kembali dari permainan.
+## Contoh Tampilan
+- **Input**: `Asko: "Ide bagus!"`
+  - Atas: `Asko`
+  - Bawah: `Ide bagus!`
+- **Input**: `(Angin berhembus dingin)`
+  - Atas: (Kosong)
+  - Bawah: `(Angin berhembus dingin)`
 
-## Cara Mencoba
-1. Jalankan aplikasi dan pilih **New Game**.
-2. Mainkan beberapa baris teks atau pilih salah satu jalur.
-3. Klik tombol **Pause** (atau tombol Back) lalu klik **Save**.
-4. Kembali ke **Main Menu**.
-5. Tombol **Continue** sekarang seharusnya aktif. Klik untuk melanjutkan dari posisi yang Anda simpan tadi.
-
-> [!NOTE]
-> Progress yang disimpan mencakup baris teks spesifik yang sedang Anda baca, sehingga Anda tidak akan kehilangan jejak dialog terakhir.
+> [!TIP]
+> Perubahan ini membuat teks dialog jauh lebih mudah dibaca dan memberikan kesan novel visual yang lebih profesional!

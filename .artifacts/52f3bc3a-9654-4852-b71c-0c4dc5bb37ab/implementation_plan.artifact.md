@@ -1,44 +1,35 @@
-# Implementasi Save, Load, dan Continue
+# Implementasi Pemisahan Nama Karakter dan Dialog
 
-Dokumen ini menjelaskan rencana untuk menambahkan fitur simpan data (Save), muat data (Load), dan lanjut (Continue) menggunakan `SharedPreferences`.
+Rencana ini bertujuan untuk memindahkan nama karakter yang sedang berbicara ke area `tvSpeaker` (posisi narator) dan menampilkan dialognya saja di area `tvLine`. Jika tidak ada karakter yang berbicara (narasi), area nama akan dikosongkan.
 
-## Perubahan Utama
+## Perubahan yang Diusulkan
 
-### 1. Utilitas Penyimpanan (`SaveManager`)
-Membuat kelas `SaveManager` untuk menangani operasi baca/tulis ke `SharedPreferences`.
-- Menyimpan kunci node saat ini (`nodeKey`) dan indeks baris (`lineIndex`).
-- Mengecek keberadaan data tersimpan.
+### [MainActivity](file:///C:/Users/Lenovo/StudioProjects/RumahTerbangkalai/app/src/main/java/com/example/rumahterbangkalai/view/MainActivity.kt)
 
-### 2. Pembaruan `MainActivity`
-- Menambahkan variabel `currentNodeKey` untuk melacak kunci node yang sedang aktif.
-- Memperbarui fungsi `goToNode` agar bisa menerima parameter `lineIndex` opsional (berguna saat memuat game).
-- Mengimplementasikan fungsi pada tombol **Save** dan **Load** di menu jeda (Pause Menu).
-- Menangani data kiriman (Intent extras) dari menu utama untuk memulai game dari posisi tertentu.
-
-### 3. Pembaruan `MenuActivity`
-- Mengecek keberadaan save data saat aplikasi dibuka.
-- Mengaktifkan/menonaktifkan tombol **Continue** berdasarkan status save data.
-- Mengimplementasikan logika tombol **Continue** dan **Load** untuk berpindah ke `MainActivity` dengan status yang tersimpan.
+#### [MODIFY] [MainActivity.kt](file:///C:/Users/Lenovo/StudioProjects/RumahTerbangkalai/app/src/main/java/com/example/rumahterbangkalai/view/MainActivity.kt)
+- Memperbarui `goToNode`: Menghapus pengaturan teks `tvSpeaker` default karena sekarang akan diatur per baris.
+- Memperbarui `displayCurrentLine`:
+    - Mengambil baris teks mentah.
+    - Melakukan penggantian nama dinamis `Kamu` menjadi `playerName`.
+    - Menggunakan logika parsing untuk memisahkan nama pembicara:
+        - Jika baris diawali dengan `Nama:`, maka `tvSpeaker` menampilkan `Nama` dan `tvLine` menampilkan sisa teksnya.
+        - Jika baris tidak memiliki format `:` (seperti narasi dalam kurung), maka `tvSpeaker` dikosongkan dan `tvLine` menampilkan seluruh teks.
+    - Menangani karakter khusus seperti tanda kutip agar tampilan lebih bersih jika diperlukan.
 
 ## Rencana Aksi
 
-### [NEW] [SaveManager.kt](file:///C:/Users/Lenovo/StudioProjects/RumahTerbangkalai/app/src/main/java/com/example/rumahterbangkalai/util/SaveManager.kt)
-Membuat file baru di paket `util`.
+### 1. Riset Regex Parsing
+Memastikan regex yang digunakan dapat menangani format:
+- `Nama: "Dialog"`
+- `Nama: (Aksi) "Dialog"`
+- `(Narasi/Aksi)`
 
-### [MODIFY] [MainActivity.kt](file:///C:/Users/Lenovo/StudioProjects/RumahTerbangkalai/app/src/main/java/com/example/rumahterbangkalai/view/MainActivity.kt)
-- Tambah `currentNodeKey`.
-- Update `goToNode(key: String, lineIndex: Int = 0)`.
-- Hubungkan tombol **Save** dan **Load** ke `SaveManager`.
-- Di `onCreate`, cek apakah ada Intent extra untuk memuat posisi tertentu.
-
-### [MODIFY] [MenuActivity.kt](file:///C:/Users/Lenovo/StudioProjects/RumahTerbangkalai/app/src/main/java/com/example/rumahterbangkalai/view/MenuActivity.kt)
-- Update `onResume` untuk mengecek status save dan update tombol **Continue**.
-- Hubungkan tombol **Continue** dan **Load** (sementara keduanya memuat save yang sama).
+### 2. Modifikasi `MainActivity.kt`
+- Ubah `displayCurrentLine` untuk menerapkan logika pemisahan.
+- Bersihkan `tvSpeaker` di `goToNode`.
 
 ## Verifikasi
-- Memulai game baru.
-- Bermain sampai node tertentu.
-- Klik Save di Pause Menu.
-- Keluar ke Main Menu.
-- Klik Continue dan pastikan kembali ke posisi terakhir (node dan baris teks yang sama).
-- Klik Load di Pause Menu saat sedang bermain untuk memastikan data dimuat ulang.
+1. Jalankan aplikasi.
+2. Periksa dialog awal: `Asko` harus muncul di atas kotak dialog, dan teksnya muncul di bawah tanpa `Asko:`.
+3. Periksa dialog `Kamu`: Harus muncul nama pemain di atas.
+4. Periksa narasi (dalam kurung): Area nama di atas harus kosong.

@@ -1,4 +1,11 @@
-- [x] Implementasikan `SaveManager`
+- [x] Implementasikan `SaveManager` (Basic Save/Load)
 - [x] Update `MainActivity.kt` (Logic Save/Load)
 - [x] Update `MenuActivity.kt` (Logic Continue/Load)
-- [x] Verifikasi Fitur
+- [x] Tambahkan penyimpanan nama pemain di `SaveManager`
+- [x] Buat layout dialog input name `dialog_input_name.xml`
+- [x] Implementasikan dialog input nama di `MenuActivity`
+- [x] Implementasikan penggantian nama dinamis di `MainActivity`
+- [x] Verifikasi fitur nama dinamis
+- [x] Pisahkan nama pembicara ke `tvSpeaker` di `MainActivity`
+- [x] Bersihkan `tvSpeaker` untuk baris narasi
+- [x] Verifikasi tampilan dialog baru
