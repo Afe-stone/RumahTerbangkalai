@@ -21,6 +21,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.rumahterbangkalai.MusicService
 import com.example.rumahterbangkalai.R
+import com.example.rumahterbangkalai.util.SaveManager
 import com.example.rumahterbengkalai.StoryNode
 import com.example.rumahterbengkalai.storyMap
 import kotlinx.coroutines.Job
@@ -39,7 +40,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var choicesContainer: LinearLayout
     private lateinit var btnRestart: Button
     private lateinit var dialogueBar: View
+    private lateinit var saveManager: SaveManager
+
     private var currentNode: StoryNode = storyMap["intro"]!!
+    private var currentNodeKey: String = "intro"
     private var currentLineIndex = 0
     private var isTyping = false
 
@@ -61,6 +65,7 @@ class MainActivity : AppCompatActivity() {
         choicesContainer = findViewById(R.id.choices_container)
         btnRestart = findViewById(R.id.btn_restart)
         dialogueBar = findViewById(R.id.dialogue_bar)
+        saveManager = SaveManager(this)
 
         ViewCompat.setOnApplyWindowInsetsListener(rootLayout) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -93,13 +98,21 @@ class MainActivity : AppCompatActivity() {
         // Start Music
         startService(Intent(this, MusicService::class.java))
 
-        goToNode("intro")
+        val loadKey = intent.getStringExtra("LOAD_NODE")
+        val loadIndex = intent.getIntExtra("LOAD_INDEX", 0)
+
+        if (loadKey != null) {
+            goToNode(loadKey, loadIndex)
+        } else {
+            goToNode("intro")
+        }
     }
 
-    private fun goToNode(key: String) {
+    private fun goToNode(key: String, lineIndex: Int = 0) {
         val node = storyMap[key] ?: return
         currentNode = node
-        currentLineIndex = 0
+        currentNodeKey = key
+        currentLineIndex = lineIndex
 
         choicesContainer.visibility = View.GONE
         choicesContainer.removeAllViews()
@@ -227,12 +240,20 @@ class MainActivity : AppCompatActivity() {
         btnContinue.setOnClickListener { dialog.dismiss() }
 
         btnSave.setOnClickListener {
-            Toast.makeText(this@MainActivity, "fitur belum adaa", Toast.LENGTH_SHORT).show()
+            saveManager.saveGame(currentNodeKey, currentLineIndex)
+            Toast.makeText(this@MainActivity, "Game Saved", Toast.LENGTH_SHORT).show()
             dialog.dismiss()
         }
 
         btnLoad.setOnClickListener {
-            Toast.makeText(this@MainActivity, "fitur belum adaa", Toast.LENGTH_SHORT).show()
+            if (saveManager.hasSaveData()) {
+                val nodeKey = saveManager.getSavedNode()!!
+                val lineIdx = saveManager.getSavedLineIndex()
+                goToNode(nodeKey, lineIdx)
+                Toast.makeText(this@MainActivity, "Game Loaded", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this@MainActivity, "No save data found", Toast.LENGTH_SHORT).show()
+            }
             dialog.dismiss()
         }
 

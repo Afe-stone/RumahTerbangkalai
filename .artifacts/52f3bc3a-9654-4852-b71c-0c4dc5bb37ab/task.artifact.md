@@ -1,0 +1,4 @@
+- [x] Implementasikan `SaveManager`
+- [x] Update `MainActivity.kt` (Logic Save/Load)
+- [x] Update `MenuActivity.kt` (Logic Continue/Load)
+- [x] Verifikasi Fitur
