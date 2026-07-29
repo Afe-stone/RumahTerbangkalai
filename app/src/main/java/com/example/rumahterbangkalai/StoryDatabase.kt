@@ -35,7 +35,7 @@ val storyMap = mapOf(
             Choice("Jangan cuma diam di sini! Lari naik ke lantai dua, cari jalan keluar lain!", "lantai_dua"),
             Choice("Awas! Aku bakal mendobrak pintu samping ini duluan!", "pintu_samping")
         ),
-        backgroundColor = "#22140F"
+        backgroundRes = R.drawable.bg2batu
     ),
     "kayu" to StoryNode(
         label = "Jalur Kayu (Senyap)", depth = 1,
@@ -52,7 +52,7 @@ val storyMap = mapOf(
             Choice("Lebih baik ikuti cahaya lilin ke Lorong Kanan (Perpustakaan)!", "perpustakaan"),
             Choice("Biar cepat selesai, kita bagi kelompok jadi dua aja!", "bagi_kelompok")
         ),
-        backgroundColor = "#14181A"
+        backgroundRes = R.drawable.bg2kayu
     ),
     "meja" to StoryNode(
         label = "Terjebak di Bawah Meja", depth = 2,
@@ -67,7 +67,7 @@ val storyMap = mapOf(
             Choice("Raffa, Abhi, tahan dia! (Mendorong Raffa dan Abhi ke depan)", "pengorbanan_teman"),
             Choice("(Terpaku diam ketakutan setengah mati).", "ending1")
         ),
-        backgroundColor = "#1A1A1A"
+        backgroundRes = R.drawable.bg3meja
     ),
     "lantai_dua" to StoryNode(
         label = "Menuju Lantai Dua", depth = 2,

@@ -246,6 +246,7 @@ class MainActivity : AppCompatActivity() {
                 layoutParams = params
 
                 setOnClickListener {
+                    dimOverlay.visibility = View.GONE
                     goToNode(choice.goto)
                 }
             }
