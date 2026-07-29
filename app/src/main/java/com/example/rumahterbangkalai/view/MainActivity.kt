@@ -2,12 +2,14 @@ package com.example.rumahterbangkalai.view
 
 import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -35,7 +37,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tvSpeaker: TextView
     private lateinit var tvLine: TextView
     private lateinit var ivArrow: View
-
     private lateinit var btnPause: Button
     private lateinit var choicesContainer: LinearLayout
     private lateinit var btnRestart: Button
@@ -121,9 +122,22 @@ class MainActivity : AppCompatActivity() {
         btnRestart.visibility = View.GONE
         ivArrow.visibility = View.INVISIBLE
 
-        rootLayout.setBackgroundColor(node.backgroundColor.toColorInt())
+        val ivBackground = findViewById<ImageView>(R.id.ivBackground)
+
+        if (node.backgroundRes != null) {
+            ivBackground.visibility = View.VISIBLE
+            ivBackground.setImageResource(node.backgroundRes)
+
+            rootLayout.setBackgroundColor(Color.BLACK)
+        } else if (!node.backgroundColor.isNullOrEmpty()) {
+            ivBackground.visibility = View.GONE
+            rootLayout.setBackgroundColor(node.backgroundColor.toColorInt())
+        } else {
+            ivBackground.visibility = View.GONE
+            rootLayout.setBackgroundColor(Color.BLACK)
+        }
+
         tvChapter.text = node.label.uppercase()
-        // tvSpeaker updated per line in displayCurrentLine()
 
         displayCurrentLine()
     }
@@ -187,7 +201,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleDialogueClick() {
-        if (System.currentTimeMillis() - lastLineStartTime < 1000) {
+        if (System.currentTimeMillis() - lastLineStartTime < 1) {
             return
         }
         if (isTyping) {
@@ -210,9 +224,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showChoices() {
+        val dimOverlay = findViewById<View>(R.id.vDimOverlay)
         choicesContainer.removeAllViews()
         choicesContainer.visibility = View.VISIBLE
-
+        dimOverlay.visibility = View.VISIBLE
         for (choice in currentNode.choices) {
             val button = Button(this).apply {
                 val choiceText = choice.text.replace("Kamu", playerName)
@@ -243,20 +258,18 @@ class MainActivity : AppCompatActivity() {
         dialog.setContentView(R.layout.pause)
 
         dialog.window?.let { window ->
-            // Hilangkan background bawaan dialog agar drawable XML kita yang mengambil alih
+
             window.setBackgroundDrawableResource(android.R.color.transparent)
 
-            // Buat window memenuhi layar agar efk gradient-nya meluas ke seluruh layar
+
             window.setLayout(
                 WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.MATCH_PARENT
             )
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 window.addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND)
-                window.attributes.blurBehindRadius = 67 // Tingkat keburaman blur (bisa diubah 10-50)
+                window.attributes.blurBehindRadius = 67
             }
-            // Hapus efek dim bawaan Android agar tidak memblokir gradient kita
-//            window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
         }
 
         dialog.setCancelable(true)

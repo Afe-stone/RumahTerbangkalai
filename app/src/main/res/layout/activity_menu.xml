@@ -15,89 +15,90 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="0dp"
         android:fontFamily="@font/exocet_light"
+        android:background="@drawable/bgsomthingyangkeratusankalinya"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginLeft="50dp"
-
-        android:text="Rumah Terbangkai"
+        android:text="Rumah Terbangkalai"
         android:textSize="38sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
-        android:fontFamily="@font/exocet_light"
-        android:text="typo jir"
-        android:layout_marginLeft="50dp"
+<!--    <TextView-->
+<!--        android:id="@+id/textView2"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginBottom="40dp"-->
+<!--        android:fontFamily="@font/exocet_light"-->
+<!--        android:text="typo jir"-->
+<!--        android:layout_marginLeft="50dp"-->
 
-        android:textColor="@color/white"
-        android:textSize="10sp"
-        android:textStyle="bold" />
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="10sp"-->
+<!--        android:textStyle="bold" />-->
 
 
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnContinue"
-        android:background="@android:color/transparent"
+        android:background="@drawable/bgtext"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/exocet"
         android:textColor="@color/white"
-android:layout_marginLeft="50dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="50dp"
         android:textSize="20dp"
         android:layout_marginBottom="18dp"
         android:text="Continue" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnNewGame"
-        android:background="@android:color/transparent"
+        android:background="@drawable/bgtext"
         android:fontFamily="@font/exocet"
         android:textSize="20dp"
         android:textColor="@color/white"
         android:layout_marginLeft="50dp"
-
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="18dp"
         android:text="New Game" />
 
-    <Button
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnLoad"
         android:layout_width="200dp"
-        android:background="@android:color/transparent"
+        android:background="@drawable/bgtext"
         android:fontFamily="@font/exocet"
         android:textSize="20dp"
         android:textColor="@color/white"
         android:layout_marginLeft="50dp"
 
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="18dp"
         android:text="Load" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnExit"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
+        android:backgroundTint="@null"
+        android:background="@drawable/bgtext"
         android:fontFamily="@font/exocet"
         android:textSize="20dp"
         android:textColor="@color/white"
         android:layout_marginLeft="50dp"
-
         android:text="Exit" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
+<!--    <TextView-->
+<!--        android:id="@+id/textView"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginLeft="50dp"-->
 
-        android:fontFamily="@font/exocet_light"
-        android:layout_marginTop="24dp"
-        android:text="hold up this song is fire"
-        android:textColor="@color/white"
-        android:textSize="10sp"
-        android:textStyle="bold" />
+<!--        android:fontFamily="@font/exocet_light"-->
+<!--        android:layout_marginTop="24dp"-->
+<!--        android:text="hold up this song is fire"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="10sp"-->
+<!--        android:textStyle="bold" />-->
 </LinearLayout>

@@ -1,8 +1,10 @@
 package com.example.rumahterbengkalai
 
+import com.example.rumahterbangkalai.R
+
 val storyMap = mapOf(
     "intro" to StoryNode(
-        label = "Misteri Rumah Terbengkalai - Pendahuluan", depth = 0,
+        label = "Misteri Rumah Terbengkalai - Project Sekolah", depth = 0,
         lines = listOf(
             "Asko: \"Gini, guys. Biar project sekolah kita beda dari kelompok lain, gimana kalau kita bikin penelitian di rumah tua terbengkalai yang ada di pinggir kota?\"",
             "Raffa: \"Rumah tua yang megah itu? Wah, ide gila sih, tapi keren!\"",
@@ -17,7 +19,7 @@ val storyMap = mapOf(
             Choice("Bhi, pakai BATU besar itu aja! Hantam gemboknya sekencang mungkin!", "batu"),
             Choice("Jangan bikin bising. Pakai KAYU itu, selipkan ke celah rantai terus dorong pakai prinsip tuas!", "kayu")
         ),
-        backgroundColor = "#191C22"
+        backgroundRes = R.drawable.bg1fr
     ),
     "batu" to StoryNode(
         label = "Jalur Batu (Suara Bising)", depth = 1,

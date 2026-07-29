@@ -8,6 +8,26 @@
     android:layout_height="match_parent"
     android:background="#0A0908">
 
+    <ImageView
+        android:id="@+id/ivBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+    <View
+        android:id="@+id/vignetteOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/vignette"/>
+    <View
+        android:id="@+id/vDimOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#99000000"
+        android:visibility="gone" />
     <TextView
         android:id="@+id/tv_chapter"
         android:fontFamily="@font/merriweather"
@@ -16,19 +36,30 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:text="PROLOG"
-        android:textColor="#A5432F"
+        android:textColor="#ffe3e3"
         android:textSize="14sp"
         android:textStyle="bold"
+        android:shadowColor="#000000"
+        android:background="@drawable/bgsomthingyangkeratusankalinya"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnPause"
         android:layout_width="74dp"
         android:layout_height="30dp"
+        android:background="@android:color/transparent"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
-        android:background="@drawable/pause_icon"
+        app:icon="@drawable/pasue_icon"
+        android:tint="@android:color/white"
+        app:iconTint="@android:color/white"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
+        app:iconSize="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,11 +68,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:background="@drawable/bgsomthingyangkeratusankalinya"
         android:gravity="center"
         android:paddingHorizontal="100dp"
         app:layout_constraintBottom_toTopOf="@+id/dialogue_bar"
         app:layout_constraintTop_toBottomOf="@+id/tv_chapter"
-        android:visibility="gone" />
+        android:visibility="gone"
+        />
 
     <Button
         android:id="@+id/btn_restart"
@@ -56,11 +89,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_chapter" />
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/dialogue_bar"
         android:layout_width="match_parent"
         android:layout_height="140dp"
-        android:background="#80000000"
+        android:background="#99000000"
         android:clickable="true"
         android:focusable="true"
         android:padding="20dp"
@@ -80,7 +114,7 @@
             android:text="NARATOR"
             android:fontFamily="@font/merriweather_italian_mamamia"
 
-            android:textColor="#A5432F"
+            android:textColor="#a88888"
             android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -112,5 +146,6 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

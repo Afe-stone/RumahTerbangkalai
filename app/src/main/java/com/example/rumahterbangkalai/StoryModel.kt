@@ -11,5 +11,6 @@ data class StoryNode(
     val lines: List<String>,
     val choices: List<Choice> = emptyList(),
     val isEnding: Boolean = false,
-    val backgroundColor: String = "#0A0908"
+    val backgroundColor: String? = null,
+    val backgroundRes: Int? = null
 )
