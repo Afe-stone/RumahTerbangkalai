@@ -52,7 +52,7 @@ val storyMap = mapOf(
             Choice("Lebih baik ikuti cahaya lilin ke Lorong Kanan (Perpustakaan)!", "perpustakaan"),
             Choice("Biar cepat selesai, kita bagi kelompok jadi dua aja!", "bagi_kelompok")
         ),
-        backgroundRes = R.drawable.bg2kayu
+        backgroundRes = R.drawable.bgkayu3
     ),
     "meja" to StoryNode(
         label = "Terjebak di Bawah Meja", depth = 2,
@@ -81,7 +81,7 @@ val storyMap = mapOf(
             Choice("Maaf guys, aku duluan! (Melompat sendirian)", "lompat_sendiri"),
             Choice("Ambil kayu ini! Kita serang bayangan itu bersama-sama!", "ending4")
         ),
-        backgroundColor = "#10151C"
+        backgroundRes = R.drawable.bg3tangga
     ),
     "pintu_samping" to StoryNode(
         label = "Panik dan Kabur Sendirian", depth = 2,
